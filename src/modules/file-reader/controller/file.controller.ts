@@ -1,20 +1,25 @@
 import { File } from '../models/file.model';
-import ExcelJS from 'exceljs';
 import { formatRecord } from '../utils/format-records.mapper';
+import { FileService } from '../service/file.service';
+
+const fileService: FileService = new FileService();
 
 export default class FileController {
     
     static async processFile(file: File){
-        const { path } = file;
-        const workbook = new ExcelJS.Workbook(); 
-        const excelWorkbook = await workbook.xlsx.readFile(path);
-        const records: Array<any> = [];
+        const { 
+            records, 
+            fileName, 
+            path 
+        }  = await fileService.processFile(file);
 
-        excelWorkbook.getWorksheet(1).eachRow((row, number) => {
-            if(number != 1) records.push(formatRecord(row.values));
-        })
-        return {
-            data: records,
-        }
+        await fileService.createTask(fileName, path);
+
+        return { 
+            records: records, 
+            recordsQuantified: records.length, 
+            fileName: fileName, 
+            filePath: path 
+        };
     }
 }
