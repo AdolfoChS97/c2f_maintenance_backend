@@ -9,10 +9,8 @@ const upload = Multer({ dest: './../../../uploads' })
 
 router.post('/upload', upload.single('document'), async (req: Request, res: Response) => {
     try {
-        console.time('process file');
         const document: File = req.file as unknown as File ;
         res.status(200).json(await FileController.processFile(document));
-        console.timeEnd('process file');
     } catch (e) {
         throw e;
     }
