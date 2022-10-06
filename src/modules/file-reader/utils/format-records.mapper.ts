@@ -1,4 +1,6 @@
-export const formatRecord = (record: any) => {
+import { Customer } from "../models/file.dto";
+
+export const formatRecord = (record: any): Customer => {
     const [
         empty,
         env, 
@@ -25,25 +27,10 @@ export const formatRecord = (record: any) => {
     
     return {
         env: env, 
-        control: control, 
-        wtn: wtn, 
+        samControlNumber: control, 
         btn: btn, 
-        gbluid: gbluid, 
-        subcdt: subcdt, 
-        subddt: subddt,
-        subexc: subexc, 
-        subln: subln, 
-        subres: subres, 
-        substp: substp, 
-        stpmsc: stpmsc,
-        stpmscDs: stpmscDs,
-        bundle: bundle, 
-        maxSpeed: maxSpeed,
-        voipInd: voipInd,
-        ftrIdAcctInd: ftrIdAcctInd,
-        emailInd: emailInd,
-        emailAddress: emailAddress,
-        rundte: rundte
+        uuid: gbluid, 
+        email: emailAddress,
     }
 
 }
